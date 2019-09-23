@@ -9,9 +9,9 @@ To think more formally, you can think of a four word spoonerism as two pairs of 
 
 The benefit of thinking of spoonerisms in this more formal form is that two useful facts become evident:
 
--Useful fact 1. You do not have to start with rhyming words, and you do not have to start with words that have the same first       letter. Any two words might yield a spoonerism, the only limitation placed upon you once you select two words is that you have to find another pair of words that have the same pair of first sounds or letters as the second and first, and each share the ending sounds with each of the first words, respectively. This kind of makes spoonerisms not too much more difficult to test and invent than rhymes, except for that you might have to do them about 26 times as frequently, because once you found a super rhyme matching the first word's letter, you also have to have it match the second word's letter. 
+ - Useful fact 1. You do not have to start with rhyming words, and you do not have to start with words that have the same first       letter. Any two words might yield a spoonerism, the only limitation placed upon you once you select two words is that you have to find another pair of words that have the same pair of first sounds or letters as the second and first, and each share the ending sounds with each of the first words, respectively. This kind of makes spoonerisms not too much more difficult to test and invent than rhymes, except for that you might have to do them about 26 times as frequently, because once you found a super rhyme matching the first word's letter, you also have to have it match the second word's letter. 
      
--Useful fact 2. Any set of four words, when you have found a spoonerism, remain a spoonerism in three additional configurations. 
+ - Useful fact 2. Any set of four words, when you have found a spoonerism, remain a spoonerism in three additional configurations. 
      
 Ax By                 By Ax                Bx Ay                   Ay Bx
 Bx Ay (original),     Ay Bx (mirrored),    Ax By (upside-down),    By Ax(both mirrored and upside-down)
