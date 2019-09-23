@@ -18,8 +18,8 @@ The benefit of thinking of spoonerisms in this more formal form is that two usef
 
 And with the examples typed out with my favorite example:
 
-      Caring Parrots         Parrots Caring        Paring Carrots           Carrots Paring       
-      Paring Carrots,        Carrots Paring,       Caring Parrots,          Parrots Caring
+       Caring Parrots         Parrots Caring        Paring Carrots           Carrots Paring       
+       Paring Carrots,        Carrots Paring,       Caring Parrots,          Parrots Caring
      
 It seems the first is the only funny one of the four. But the benefit of this permuting is that once you have found a set of four words that craft a spoonerism, you have four chances to make one that's actually funny. 
 
