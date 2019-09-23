@@ -1,11 +1,11 @@
-# Perfect Spoonerisms
-This repository organizes the work done to make perfect spoonerisms and optimize them. 
+# Generating Perfect Spoonerisms
+This repository organizes the work done to auto-generate perfect spoonerisms and optimize that auto-generation. 
 
-A spoonerism, from Wikipedia, is "named after the Oxford don and ordained minister William Archibald Spooner". A spoonerism is when a set of words' initial sounds are switched among each other and new words or funny-sounding pseudo-words are created; a classic example being: "is it kisstomary to cuss the bride?". These spoonerisms don't necessarily create new words, they can just make utterances that sound humorous. Kisstomary isn't a word, and if it were, the effect of the spoonerism might actually be less humorous, or just simply confusing. 
+A [spoonerism, from Wikipedia](https://en.wikipedia.org/wiki/Spoonerism), is "named after the Oxford don and ordained minister William Archibald Spooner". A spoonerism is when a set of words' initial sounds are switched among each other and new words or funny-sounding pseudo-words are created; a classic example from Sir Spooner being: "is it kisstomary to cuss the bride?". These spoonerisms don't necessarily create new words, they can just make utterances that sound humorous. Kisstomary isn't a word, and if it were, the effect of this spoonerism might actually be less humorous, or just simply confusing. 
 
-There is another set of spoonerisms, which are the subject of this project. They arise when the shuffled words either get spelled or pronounced as valid words, or nearly valid words. I call these "perfect" spoonerisms. Perfect spoonerisms either are spoonerisms in how they are pronounced, or how they are spelled, or both. I might call the spoonerisms that work both on spelling and pronouncing "more perfect" spoonerisms. My prime example of that: "caring parrots paring carrots". It's the best I have come across. It conjures an image, makes sense as a short phrase, and is somewhat humorous on its own, though admittedly less so than some of the best non-perfect spoonerisms out there. Again, note this example has the spellings preserved *and* the pronunciation preserved. It is pure coincidence that the four words are parallel in both sound and letter. I liked this so much I made it into a t-shirt. The shirt pattern was drawn by Tracey Sutliff, who can be found as @ill_trace on Instagram, and the pattern can be found in the project files as "cppc.pdf". Use it wherever you like, but not without crediting the artist and myself, please. 
+There is another set of spoonerisms, which are the subject of this project. They arise when the shuffled words either get spelled or pronounced as valid words, or nearly-valid words. I call these "perfect" spoonerisms. Perfect spoonerisms are either spoonerisms in how they are pronounced, or how they are spelled, or both. I might end up calling the spoonerisms that work, both on spelling and pronounciation, "**more** perfect" spoonerisms. My prime example of a **more** perfect spoonerism: "caring parrots paring carrots". It's the best I have come across. It conjures an image, makes sense as a short phrase, and is somewhat humorous on its own, though admittedly less so than some of the best non-perfect spoonerisms out there. Again, note this example has the spellings preserved *and* the pronunciation preserved. It is pure coincidence that the four words are parallel in both sound and letter. I liked this so much I made it into a t-shirt. The shirt pattern was drawn by Tracey Sutliff, who can be found as @ill_trace on Instagram, and the pattern can be found in the project files as "cppc.pdf". Use it wherever you like, but not without crediting the artist and myself, please. 
 
-To think more formally, you can think of a four word spoonerism as two pairs of words notated Ax By Bx Ay, where {A,B} are two initial sounds of words that do not rhyme, and {x,y} are the sounds or spellings of a word after its initial sound or letters. It might seem this is equivalent to rhyming; it's not. I like to think of it as a "super" rhyme, where all of the ending sounds are the same, not just a few of them. "Caring parrots ping carrots" isn't a spoonerism, because caring and ping aren't similar enough. You wouldn't have a "tip of the slongue" and mistake ping for caring because they aren't similar, despite technically rhyming.
+To think more formally, you can think of a four word spoonerism as two pairs of words notated *Ax By Bx Ay*, where *{A,B}* are two initial sounds of words that do not rhyme, and *{x,y}* are the sounds or spellings of a word after its initial sound or letters. It might seem this is equivalent to rhyming; it's not. I like to think of it as a "super" rhyme, where all of the ending sounds are the same, not just a few of them. "Caring parrots ping carrots" isn't a spoonerism, because caring and ping aren't similar enough. You wouldn't have a "tip of the slongue" and mistake ping for caring because they aren't similar, despite technically rhyming.
 
 The benefit of thinking of spoonerisms in this more formal form is that two useful facts become evident:
 
@@ -31,6 +31,8 @@ The plan for the work is to make a spoonerism generator code in Python and creat
 
 When this stage is completed, I will make a Youtube video promoting the project and describing the process, to promote it so that people make their own spoonerisms and provide helpful feedback on the spoonerisms provided.
 
+## Next steps:
+
 After that website/app/other thing is live and well-used, it is my expectation that we can use surveys related to the resulting spoonerisms to craft an improved generator that selects among spoonerisms for those more likely to be funny than those generated at random. I don't know exactly what makes a set of words likely to be funny, and this is probably a classically-difficult problem in computer science, but there are a number of features of spoonerisms that assist us in creating them with computers, above other funny phrase types like puns or jokes or cadences: *the output adheres to a rigid format, it contains relatively few degrees of freedom, can be produced algorithmically, and the outputs have a lot in common with each other.*
 
 ### Rigid format: 
@@ -43,11 +45,14 @@ The composition of each word shares many attributes with each other word, and th
 My program as it is constructed so far starts with one word, finds a word that super rhymes with it, then randomly picks a new word, then recursively finds rhymes for that until it has the same first letter as the second initial word. This process can be achieved relatively quickly by a computer, and over and over again with new results. Future work might expand this to create a master list of all possible spoonerisms, if such a thing is possible. 
 
 ### Outputs have a lot in common with each other: 
-Spoonerisms can be compared for certain characteristics, and they can be compared easily because the things they might have in common they very frequently have in common. For example, there are at most four parts of speech in each spoonerism. The order of these might be important. Is it particularly likely that a funny spoonerism occurs in "adjective, predicate-noun, verb, object-noun, as it does in "caring parrots paring carrots"?
+Spoonerisms can be compared for certain characteristics, and they can be compared easily because the things they might have in common they very frequently have in common. For example, there are at most four parts of speech in each spoonerism. The order of these might be important. Is it particularly likely that a funny spoonerism occurs in "adjective, predicate-noun, verb, object-noun, as it does in "caring parrots paring carrots"? Does it matter that the words are all two syllables? Does it matter that paring carrots is a sensible phrase that occurs frequently whenever at least one of those words occurs? Any of these elements can yield information that can be used to predict good spoonerisms, then report the output of a random process through the filter of those predictions, as a simulation of that data generating process. 
+
+
+
+
+## End notes:
 
 This project is open, and free for anyone to use or alter, though if you interract through this github you'll be able to benefit from others' contributions as well. I'll work out how this is licensed soon. 
-
-
 
 
 >The files are dictionaries from the CMU pronunciation dictionary.
