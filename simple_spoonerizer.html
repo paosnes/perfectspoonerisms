@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+
+<body>
+  <h2> The Simple Spoonerizer </h2>
+
+  <p>Enter two different words to be spoonerized.</p>
+
+  <form>
+    First word: <input type="text" value="Caring" id="first_word"><br>
+    Second word: <input type="text" value="Parrots" id="second_word"><br>
+    <button onclick="basic_input_print(); return false">Spoonerize!</button>
+  </form>
+
+  <p id="output"></p>
+
+  <script>
+    function basic_input_print() {
+      document.getElementById("output").innerHTML = 
+        document.getElementById('first_word').value + " " + document.getElementById('second_word').value;
+    }
+  </script>
+
+  <form>
+    <button>Refresh</button>
+  </form>
+
+</body>
+
+</html>
