@@ -10,15 +10,15 @@ class importer():
         return a, b, c, d
 
     def import_cmudict(self):                                                           ##p makes new function import_cmudict() which opens dictionary, returns symbols and word.
-        word_to_sym, sym_to_word = {}, {}                                                   ##p makes new variables word_to_sym, sym_to_word
+        word_to_sym, sym_to_word = {}, {}                                               ##p makes new variables word_to_sym, sym_to_word
         with open('perfectspoonerisms//cmudict-0.7c.txt', 'r') as file:                 ##p opens up cmudict-0.7c.txt, calls it "file"
             for line in file:                                                           ##p starts for loop for each line in file
                 l = line.strip().split()                                                ##p for line, strip to elements w/o leading spaces or commas
                 if l[0] != ';;;':                                                       ##p removes comments from CMU file, as ";" is interpreted in python
-                    word_to_sym[l[0]] = (l[1:])                                           ##p Initializes word_to_sym as dictionary, associates first element of l with the rest starting from second element.
-                    sym_to_word[tuple(l[1:])] = l[0]                                      ##p Initializes sym_to_word as dictionary, associates all but first elements as immutable tuple
+                    word_to_sym[l[0]] = (l[1:])                                         ##p Initializes word_to_sym as dictionary, associates first element of l with the rest starting from second element.
+                    sym_to_word[tuple(l[1:])] = l[0]                                    ##p Initializes sym_to_word as dictionary, associates all but first elements as immutable tuple
 
-        return word_to_sym, sym_to_word                                                     ##p returns lines retreieved that do not start with ;;;, made in prior lines.
+        return word_to_sym, sym_to_word                                                 ##p returns lines retreieved that do not start with ;;;, made in prior lines.
 
     def import_cmusymbols(self):                                                        ##p makes new function import_cmusymbols()
         s_list = []  ##p makes new list s_list
@@ -47,7 +47,7 @@ class spoonerize():
             np.random.shuffle(self.num_array)                                           ## shuffles number array
             rword = self.num_array[0]                                                   ##p sets rword as the first element of num_array
             rword = self.revverto(rword)                                                ##p reverts to symbols
-            rword = sym_to_word.get(tuple(rword))                                         ##p gets words from word_to_sym, sets to rword
+            rword = sym_to_word.get(tuple(rword))                                       ##p gets words from word_to_sym, sets to rword
             print('This is the random word: ', rword)                                   ##p outputs "this is the random word: ___"
             self.main(rword)                                                            ##p also calls main function, which rhymes it and makes extra words that don't necessarily spoonerize yet
 
