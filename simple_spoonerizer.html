@@ -1,23 +1,43 @@
 <!DOCTYPE HTML>
 <html>
 
+<head>
+  <style>
+    form { display: table; }
+    p { display: table-row;  
+        line-height: 2; 
+    }
+    label { display: table-cell; }  
+    input { display: table-cell; }
+    /* button.user_input { position: absolute; right: 0; } */
+  </style>
+</head>
+
 <body>
   <h2> The Simple Spoonerizer </h2>
 
   <p>Enter two different words to be spoonerized.</p>
 
   <form>
-    First word: <input type="text" value="Caring" id="first_word"><br>
-    Second word: <input type="text" value="Parrots" id="second_word"><br>
-    <button onclick="basic_input_print(); return false">Spoonerize!</button>
+    <p>
+      <label for="first_word">First word:</label>
+      <input id="first_word" type="text" value="Caring">
+    </p>
+    <p>
+      <label for="second_word">Second word: </label>
+      <input id="second_word" type="text" value="Parrots">
+    </p>
+    <button onclick="basic_input_print(); return false" class="uer_input">Spoonerize!</button>
   </form>
 
   <p id="output"></p>
 
   <script>
     function basic_input_print() {
-      document.getElementById("output").innerHTML = 
-        document.getElementById('first_word').value + " " + document.getElementById('second_word').value;
+      var first_word = document.getElementById('first_word').value.toUpperCase();
+      var second_word = document.getElementById('second_word').value.toUpperCase();
+
+      document.getElementById("output").innerHTML = first_word + " " + second_word;
     }
   </script>
 
