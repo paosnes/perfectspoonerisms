@@ -27,26 +27,23 @@ class importer():
                 l = line.strip()                                                        ##p makes l variable of removed spaces from line in file
                 s_list.append(l)                                                        ##p adds it to end of s_list. s_list is a list of all the symbols
 
-        n_list = list(range(len(
-            s_list)))                                                                   ##p makes a list of the range of the length of s_list. In other words, tells you all the positions of all the lines in s_list
-        s_dict = {s_list[x]: n_list[x] for x in
-                  range(len(s_list))}                                                   ##p makes a dictionary of the symbol and the number on n_list
-        s_dict_rev = {n_list[x]: s_list[x] for x in range(
-            len(s_list))}                                                               ##p makes a dictionary of the number on n_list and the symbol (reversed of prior)
-        return s_dict, s_dict_rev                                                       ##p returns symbol dictionary
-word_to_sym, sym_to_word, s_dict, s_dict_rev = importer().main()
+        n_list = list(range(len(s_list)))                                               ##p makes a list of the range of the length of s_list. In other words, tells you all the positions of all the lines in s_list
+        sym_to_num_dict = {s_list[x]: n_list[x] for x in range(len(s_list))}                 ##p makes a dictionary of the symbol and the number on n_list
+        num_to_sym_dict = {n_list[x]: s_list[x] for x in range(len(s_list))}                 ##p makes a dictionary of the number on n_list and the symbol (reversed of prior)
+        return sym_to_num_dict, num_to_sym_dict                                                   ##p returns symbol dictionary
+word_to_sym, sym_to_word, sym_to_num_dict, num_to_sym_dict = importer().main()
 
 
 class spoonerize():
     def __init__(self):
-        full_list = np.array([[x, y, self.converto(y)] for x, y in word_to_sym.items()])  ##p remember, np is numpy. makes an array with 4 sets of elements. word, symbol word, symbols as list, symbol numbers as list
+        full_list = np.array([[x, y, self.sym_to_num(y)] for x, y in word_to_sym.items()]) ##p makes an array with 4 sets of elements. word, symbol word, symbols as list, symbol numbers as list
         self.num_array = full_list[:, 2]                                                ##p makes num_array of the last elements in the array
 
     def random_word(self, words=1):                                                     ##p defines function that makes as manyv random words as inputed, if no input defaults to 1
         for x in range(words):                                                          ##p starts loop for the number of words selected
             np.random.shuffle(self.num_array)                                           ## shuffles number array
             rword = self.num_array[0]                                                   ##p sets rword as the first element of num_array
-            rword = self.revverto(rword)                                                ##p reverts to symbols
+            rword = self.num_to_sym(rword)                                                ##p reverts to symbols
             rword = sym_to_word.get(tuple(rword))                                       ##p gets words from word_to_sym, sets to rword
             print('This is the random word: ', rword)                                   ##p outputs "this is the random word: ___"
             self.main(rword)                                                            ##p also calls main function, which rhymes it and makes extra words that don't necessarily spoonerize yet
@@ -63,14 +60,13 @@ class spoonerize():
         else:
             print('No Ryhme for You!!!\n'.upper())
 
-    def converto(self, word):                                                           ##p makes a function that takes words and makes symbol words
-        return [s_dict.get(letter) for letter in word]                                  ##p returns a get of s_dict for the letter for each letter in the word provided
+    def sym_to_num(self, word):                                                           ##p makes a function that takes words and makes symbol words
+        return [sym_to_num_dict.get(letter) for letter in word]                              ##p returns a get of sym_to_num_dict for the letter for each letter in the word provided
 
-    def revverto(self, array):                                                          ##p makes a function that takes an array of numbers and gets symbol array
-        return [s_dict_rev.get(num) for num in array]                                   ##p gets symbols for each number array
+    def num_to_sym(self, array):                                                          ##p makes a function that takes an array of numbers and gets symbol array
+        return [num_to_sym_dict.get(num) for num in array]                                   ##p gets symbols for each number array
 
-    def match_checker(word1,
-                      word2):                                                           ##p makes function that takes two words and checks if the first letters are the same. Returns true/false
+    def sym0_checker(self,word1,word2):                                                 ##p makes function that takes two words and checks if the first letters are the same. Returns true/false
         if word1[0] == word2[0]:                                                        ##p checks if first letter is the same for both words.
             return True
         else:
@@ -82,8 +78,6 @@ class spoonerize():
         carrots, parrots = word_to_sym.get(carrots), word_to_sym.get(parrots)
         print(carrots, parrots)
         if word_to_sym.get(paring)[0] == parrots[0]:
-            # print("I found a spoonerism!")
-            # print(nw2, nw3)
             print("i found a spoonerism")
             carrots, parrots = sym_to_word.get(tuple(carrots)), sym_to_word.get(tuple(parrots))
             print(carrots, parrots)
@@ -91,15 +85,10 @@ class spoonerize():
         else:
             self.matcher(caring, paring)
 
-    # word3, word4 = self.similo
-    # if match_checker(word1, word2) == True:
-    # return True
-    # else
-
     def ryhmo(self, word):                                                               ##p defines new function rhymo
         word = word.upper()                                                              ##p capitalizes word
         word = word_to_sym.get(word)                                                       ##p gets word from word_to_sym, returns symbols. word is now the symbols
-        word = self.converto(word)                                                       ##p converts symbols to numbers
+        word = self.sym_to_num(word)                                                       ##p converts symbols to numbers
         np.random.shuffle(
             self.num_array)                                                              ##p shuffles the array containing word symbol number sets. np.random.shuffle alters num_array without =
         for x in range(len(word), 0, -1):                                                ##p starts loop for each in range of the size of the word reducing til 0, starting at length of word
@@ -108,24 +97,24 @@ class spoonerize():
                 if y[1:] == word[1:]:                                                    ##p if first word from num_array is the same as x starting from the second position
                     if y != word:                                                        ##p if it's not equal to the word we started with
                         new_word = y                                                     ##p sets new word equal to the one that satisfies the conditions.
-                        return sym_to_word.get(tuple(self.revverto(new_word)))             ##p returns the new word reverted to symbols reverted to letters.
+                        return sym_to_word.get(tuple(self.num_to_sym(new_word)))             ##p returns the new word reverted to symbols reverted to letters.
 
-    def similo(self, word):                                                              ##p defines similo function starting with word as
-        word = word.upper()                                                              ##p uppercases word
-        word = word_to_sym.get(word)                                                       ##p gets symbols of word
-        word = self.converto(word)                                                       ##p converts to numbers
+    def similo(self, caring):                                                              ##p similo finds carrot and parrot from caring, but parrot not matched with paring by char[0]
+        caring = caring.upper()                                                              ##p uppercases word
+        caring = word_to_sym.get(caring)                                                     ##p gets symbols of word
+        caring = self.sym_to_num(caring)                                                     ##p converts to numbers
 
-        fl = word[0]                                                                     ##p set fl to first symbol of word
+        fl = caring[0]                                                                     ##p set fl to first symbol of word
 
         np.random.shuffle(self.num_array)                                                ##p shuffles num_array
 
-        for x in self.num_array:                                                         ##p sets up for loop for each value of the dictionary of numbers
-            if x[0] == fl:                                                               ##p if fl is the first symbol of x
-                x = sym_to_word.get(tuple(self.revverto(x)))                               ##p gets the word of the symbol of the number of x
-                x1 = self.ryhmo(x)                                                       ##P rhymes x, sets it to x1
-                if x1 != None:                                                           ##p if x1 isn't empty:
-                    return x, x1                                                         ##p return x and x1
+        for carrot in self.num_array:                                                         ##p sets up for loop for each value of the dictionary of numbers
+            if carrot[0] == fl:                                                               ##p if fl is the first symbol of x
+                carrot = sym_to_word.get(tuple(self.num_to_sym(carrot)))                           ##p gets the word of the symbol of the number of x
+                parrot = self.ryhmo(carrot)                                                       ##P rhymes x, sets it to x1
+                if parrot != None:                                                           ##p if x1 isn't empty:
+                    return carrot, parrot
 
 
 x, y = spoonerize().matcher("sam", "ham")
-print(x, y)
+
