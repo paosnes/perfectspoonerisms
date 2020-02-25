@@ -60,23 +60,32 @@ class spoonerize():
         # randomize list
         if(word1 == None) and (word2 == None):
             print("you entered zero words")
-            return no_word()
+            return self.no_word()
         elif word2 == None:
             print("you entered one word")
-            return one_word(word1)
+            return self.one_word(word1)
         else:
             print("you entered two words")
-            return two_words(word1, word2)
+            return self.two_word(word1, word2)
 
-    #def no_word(self):
+    def no_word(self):
+        caring = sym_to_word.get(tuple(self.num_to_sym(self.num_array[0])))
+        return self.one_word(caring)
+    def one_word(self, word1):
+        paring = self.rhymer_nonrandom(word1)
+        return self.two_word(word1, paring)
+    def two_word(self, word1, word2):
+        if self.ending(word_to_sym.get(word1.upper())) == self.ending(word_to_sym.get(word2.upper())):
+            carrot, parrot = self.matcher(word1, word2)
+            caring, paring = word1, word2
+            print("Your spoonerisms are:")
+            print(caring, parrot, paring, carrot)
+            print(parrot, caring, carrot, paring)
+            print(paring, carrot, caring, parrot)
+            print(carrot, paring, parrot, caring)
+            print("Thank you for using Peter's spoonerism generator")
+            return
 
-    #    caring = list[0]
-    #    return one_word(caring)
-    #def one_word(self, word1):
-    #    paring = rhymer(word1)
-    #    return two_word(word1, paring)
-    #def two_word(self, word1, word2):
-    #
     def ending(self, symbol_list):
         if symbol_list[0] in consonant_list:
             for letter in symbol_list[1:]:
@@ -88,14 +97,23 @@ class spoonerize():
         else:
             return symbol_list
 
+    def beginning(self, symbol_list):
+        if symbol_list[0] in consonant_list:
+            for letter in symbol_list:
+                if letter in vowel_list:
+                    place = symbol_list.index(letter)
+                    return symbol_list[:place]
+        else:
+            return None
+
     def sym_to_num(self, word):                                                           ##p makes a function that takes words and makes symbol words
         return [sym_to_num_dict.get(letter) for letter in word]                           ##p returns a get of sym_to_num_dict for the letter for each letter in the word provided
 
     def num_to_sym(self, array):                                                          ##p makes a function that takes an array of numbers and gets symbol array
         return [num_to_sym_dict.get(num) for num in array]                                   ##p gets symbols for each number array
 
-    def sym0_checker(self,word1,word2):                                                 ##p makes function that takes two words and checks if the first letters are the same. Returns true/false
-        if word1[0] == word2[0]:                                                        ##p checks if first letter is the same for both words.
+    def beginning_checker(self,word1,word2):                                                 ##p makes function that takes two words and checks if the first letters are the same. Returns true/false
+        if self.beginning(word1) == self.beginning(word2):                                                        ##p checks if first letter is the same for both words.
             return True
         else:
             return False
@@ -118,7 +136,9 @@ class spoonerize():
         word = word_to_sym.get(word.upper())
         for x in self.num_array:
             if self.ending(word) == self.ending(self.num_to_sym(x)):
-               return sym_to_word.get(tuple(self.num_to_sym(x)))
+               if word != self.num_to_sym(x):
+                   return sym_to_word.get(tuple(self.num_to_sym(x)))
+
         print("Oh no, no rhyme")
 
     def rhymer(self, word):                                                              ##p defines new function rhymer
@@ -151,6 +171,4 @@ class spoonerize():
                     return carrot, parrot
 
 #spoonerize().ending("peter")
-x, y = spoonerize().matcher("lark", "bark")
-
-
+x, y = spoonerize().matcher("mess", "less")
