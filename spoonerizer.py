@@ -77,7 +77,7 @@ class spoonerize():
     def two_word(self, word1, word2):
         if self.ending(word_to_sym.get(word1.upper())) == self.ending(word_to_sym.get(word2.upper())):
             carrot, parrot = self.matcher(word1, word2)
-            caring, paring = word1, word2
+            caring, paring = word1.upper(), word2.upper()
             print("Your spoonerisms are:")
             print(caring, parrot, paring, carrot)
             print(parrot, caring, carrot, paring)
@@ -113,16 +113,17 @@ class spoonerize():
         return [num_to_sym_dict.get(num) for num in array]                                   ##p gets symbols for each number array
 
     def beginning_checker(self,word1,word2):                                                 ##p makes function that takes two words and checks if the first letters are the same. Returns true/false
-        if self.beginning(word1) == self.beginning(word2):                                                        ##p checks if first letter is the same for both words.
+        if self.beginning(word_to_sym.get(word1)) == self.beginning(word_to_sym.get(word2)):                                                        ##p checks if first letter is the same for both words.
             return True
         else:
             return False
 
     def matcher(self, caring, paring):
         caring, paring = caring.upper(), paring.upper()
-        carrots, parrots = self.caring_gets_carrotparrot(caring)
+        carrots, parrots = self.caring_gets_carrotparrot_beginning(caring)
         carrots, parrots = word_to_sym.get(carrots), word_to_sym.get(parrots)
-        if word_to_sym.get(paring)[0] == parrots[0]:
+        #if word_to_sym.get(paring)[0] == parrots[0]:
+        if self.beginning_checker(paring, sym_to_word.get(tuple(parrots))) == True:
             print("i found a spoonerism")
             print(sym_to_word.get(tuple(carrots)), sym_to_word.get(tuple(parrots)))
             carrots = sym_to_word.get(tuple(carrots))
@@ -133,13 +134,12 @@ class spoonerize():
             return self.matcher(caring, paring)
 
     def rhymer_nonrandom(self, word):
+        print(word)
         word = word_to_sym.get(word.upper())
         for x in self.num_array:
             if self.ending(word) == self.ending(self.num_to_sym(x)):
                if word != self.num_to_sym(x):
                    return sym_to_word.get(tuple(self.num_to_sym(x)))
-
-        print("Oh no, no rhyme")
 
     def rhymer(self, word):                                                              ##p defines new function rhymer
         word = word.upper()                                                              ##p capitalizes word
@@ -169,6 +169,14 @@ class spoonerize():
                 parrot = self.rhymer(carrot)                                                       ##P rhymes x, sets it to x1
                 if parrot != None:                                                           ##p if x1 isn't empty:
                     return carrot, parrot
-
+    def caring_gets_carrotparrot_beginning(self, caring):
+        caring = caring.upper()  ##p uppercases word
+        np.random.shuffle(self.num_array)                                                ##p shuffles num_array
+        for carrot in self.num_array:  ##p sets up for loop for each value of the dictionary of numbers
+            if self.beginning_checker(caring, sym_to_word.get(tuple(self.num_to_sym(carrot)))):
+                carrot = sym_to_word.get(tuple(self.num_to_sym(carrot)))  ##p gets the word of the symbol of the number of x
+                parrot = self.rhymer_nonrandom(carrot)  ##P rhymes x, sets it to x1
+                if parrot != None:  ##p if x1 isn't empty:
+                    return carrot, parrot
 #spoonerize().ending("peter")
-x, y = spoonerize().matcher("mess", "less")
+x, y = spoonerize().main("nipple")
