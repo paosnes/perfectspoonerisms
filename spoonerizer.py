@@ -9,6 +9,9 @@ class importer():
         a, b = self.import_cmudict()
         c, d = self.import_cmusymbols()
         return a, b, c, d
+    #def import_google_corpus_count(self):
+    #    common_parlance = {}
+    #    with open('', 'r') as file:
 
     def import_cmudict(self):                                                           ##p makes new function import_cmudict() which opens dictionary, returns symbols and word.
         word_to_sym, sym_to_word = {}, {}                                               ##p makes new variables word_to_sym, sym_to_word
@@ -73,8 +76,12 @@ class spoonerize():
         return self.one_word(caring)
     def one_word(self, word1):
         paring = self.rhymer_nonrandom(word1)
+        print("I'm gonna rhyme ", word1, " with ", paring)
         return self.two_word(word1, paring)
     def two_word(self, word1, word2):
+        if word1 == word2:
+            print("You have to enter different words, or fewer words.")
+            return
         if self.ending(word_to_sym.get(word1.upper())) == self.ending(word_to_sym.get(word2.upper())):
             carrot, parrot = self.matcher(word1, word2)
             caring, paring = word1.upper(), word2.upper()
@@ -85,7 +92,9 @@ class spoonerize():
             print(carrot, paring, parrot, caring)
             print("Thank you for using Peter's spoonerism generator")
             return
-
+        if self.beginning_checker(word1, word2):
+            print("Not ready for that yet. Check back soon.")
+            #Add to this section what to do when you add alliterative words.
     def ending(self, symbol_list):
         if symbol_list[0] in consonant_list:
             for letter in symbol_list[1:]:
@@ -113,7 +122,7 @@ class spoonerize():
         return [num_to_sym_dict.get(num) for num in array]                                   ##p gets symbols for each number array
 
     def beginning_checker(self,word1,word2):                                                 ##p makes function that takes two words and checks if the first letters are the same. Returns true/false
-        if self.beginning(word_to_sym.get(word1)) == self.beginning(word_to_sym.get(word2)):                                                        ##p checks if first letter is the same for both words.
+        if self.beginning(word_to_sym.get(word1.upper())) == self.beginning(word_to_sym.get(word2.upper())):                                                        ##p checks if first letter is the same for both words.
             return True
         else:
             return False
@@ -134,7 +143,6 @@ class spoonerize():
             return self.matcher(caring, paring)
 
     def rhymer_nonrandom(self, word):
-        print(word)
         word = word_to_sym.get(word.upper())
         for x in self.num_array:
             if self.ending(word) == self.ending(self.num_to_sym(x)):
