@@ -3,7 +3,8 @@ import numpy as np                                                              
 import sys
 import random
 import os
-os.chdir("perfectspoonerisms")  #change this to your current working directory for the project.
+#os.chdir("perfectspoonerisms")  #change this to your current working directory for the project.
+
 class importer():
     def main(self):
         a, b = self.import_cmudict()
@@ -13,7 +14,8 @@ class importer():
     #    common_parlance = {}
     #    with open('', 'r') as file:
 
-    def import_cmudict(self):                                                           ##p makes new function import_cmudict() which opens dictionary, returns symbols and word.
+    def import_cmudict(self):
+        ##p makes new function import_cmudict() which opens dictionary, returns symbols and word.
         word_to_sym, sym_to_word = {}, {}                                               ##p makes new variables word_to_sym, sym_to_word
         with open('cmudict-0.7c.txt', 'r') as file:                 ##p opens up cmudict-0.7c.txt, calls it "file"
             for line in file:                                                           ##p starts for loop for each line in file
@@ -65,19 +67,24 @@ class spoonerize():
             print("you entered zero words")
             return self.no_word()
         elif word2 == None:
+            word1 = word1.upper()
             print("you entered one word")
             return self.one_word(word1)
         else:
+            word1 = word1.upper()
+            word2 = word2.upper()
             print("you entered two words")
             return self.two_word(word1, word2)
 
     def no_word(self):
         caring = sym_to_word.get(tuple(self.num_to_sym(self.num_array[0])))
         return self.one_word(caring)
+
     def one_word(self, word1):
         paring = self.rhymer_nonrandom(word1)
         print("I'm gonna rhyme ", word1, " with ", paring)
         return self.two_word(word1, paring)
+
     def two_word(self, word1, word2):
         if word1 == word2:
             print("You have to enter different words, or fewer words.")
@@ -95,6 +102,7 @@ class spoonerize():
         if self.beginning_checker(word1, word2):
             print("Not ready for that yet. Check back soon.")
             #Add to this section what to do when you add alliterative words.
+
     def ending(self, symbol_list):
         if symbol_list[0] in consonant_list:
             for letter in symbol_list[1:]:
@@ -177,6 +185,7 @@ class spoonerize():
                 parrot = self.rhymer(carrot)                                                       ##P rhymes x, sets it to x1
                 if parrot != None:                                                           ##p if x1 isn't empty:
                     return carrot, parrot
+
     def caring_gets_carrotparrot_beginning(self, caring):
         caring = caring.upper()  ##p uppercases word
         np.random.shuffle(self.num_array)                                                ##p shuffles num_array
@@ -186,5 +195,8 @@ class spoonerize():
                 parrot = self.rhymer_nonrandom(carrot)  ##P rhymes x, sets it to x1
                 if parrot != None:  ##p if x1 isn't empty:
                     return carrot, parrot
+
 #spoonerize().ending("peter")
-x, y = spoonerize().main("nipple")
+#spoonerize().main("nipple")
+spoonerize().main("meme")
+
