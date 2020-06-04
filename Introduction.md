@@ -13,7 +13,7 @@ The benefit of thinking of spoonerisms in this more formal form is that two usef
      
 - Useful fact 2. Any set of four words, when you have found a spoonerism, are still spoonerisms in three additional configurations. 
      
-      Ax By                 By Ax                Bx Ay                   Ay Bx
+      Ax By                 By Ax                         Bx Ay                        Ay Bx
       Bx Ay (original),     Ay Bx (mirrored sideways),    Ax By (mirrored up-down),    By Ax(mirrored both sideways and up-down)
 
 And with the examples typed out with my favorite example:
