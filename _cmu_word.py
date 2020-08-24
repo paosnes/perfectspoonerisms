@@ -10,6 +10,7 @@ class CMUWord:
         self.word = word.upper()
         self.pronunciation = [symbol.upper() for symbol in pronunciation]
 
+
     def __str__(self):
         out_string = ""
         out_string += f"Word: {self.word}\n"
@@ -58,7 +59,7 @@ class SpoonerizerWord( CMUWord ):
         '''
         The ending of a word is defined as follows: 
             If the word starts with a consonant, the ending is everything after that consonant.
-            If 
+            If the word does not start with a consonant, the ending is the whole word.
         This function finds the subset of pronunciation symbols that make up the ending of a word.
         '''
 

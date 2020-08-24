@@ -19,7 +19,7 @@ class CMUDictionary:
 
     def __str__(self):
         out_string = ""
-        out_string += "CMU Dictionary:\n"
+        out_string +=  "CMU Dictionary:\n"
         out_string += f"  Contains {len(self.words):,d} words.\n"
         out_string += f"  First word: {self.words[0].word}\n"                   # this is sorta sloppy, think of something better
         out_string += f"  Last word: {self.words[len(self.words)-1].word}\n"    # ^
