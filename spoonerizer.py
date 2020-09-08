@@ -125,7 +125,7 @@ class spoonerize():
         '''
         -Checks for words, error if a word is empty.
         -Checks words are different, error if same.
-        -Checks endings are equal for word1,word2. If same, applies matcher to word1, word2.
+        -Checks endings are equal for word1, word2. If same, applies matcher to word1, word2.
             Matcher makes carrot,parrot from caring,paring
         -Checks beginnings same, will eventually form paring and parrot from caring and carrot.
         :param word1: first word, aka caring
@@ -160,6 +160,12 @@ class spoonerize():
 
 
     def ending(self, symbol_list):
+        '''
+        -Takes symbol list
+        -if the first symbol is a consonant, return the rest of the word starting from the first vowel, otherwise return the whole word.
+        :param symbol_list: Requires list of symbols, not word
+        :return: ending of word, by syllable.
+        '''
         if symbol_list[0] in self.consonant_list:
             for letter in symbol_list[1:]:
                 if letter in self.vowel_list:
@@ -171,6 +177,11 @@ class spoonerize():
             return symbol_list
 
     def beginning(self, symbol_list):
+        '''
+        -Returns first consonants of word until the first vowel, if any.
+        :param symbol_list: Requires symbol list
+        :return: first consonant symbols
+        '''
         if symbol_list[0] in self.consonant_list:
             for letter in symbol_list:
                 if letter in self.vowel_list:
@@ -179,22 +190,35 @@ class spoonerize():
         else:
             return None
 
-    def sym_to_num(self, list):  ##p makes a function that takes words and makes symbol words
-        return [self.sym_to_num_dict.get(symbol) for symbol in list]  ##p returns a get of sym_to_num_dict for the letter for each letter in the word provided
+    def sym_to_num(self, list):  ##p makes a function that takes words and returns symbol words
+        return [self.sym_to_num_dict.get(symbol) for symbol in list]
 
     def num_to_sym(self, list):  ##p makes a function that takes an array of numbers and gets symbol array
-        return [self.num_to_sym_dict.get(num) for num in list]  ##p gets symbols for each number array
+        return [self.num_to_sym_dict.get(num) for num in list]
 
-    def beginning_checker(self, word1, word2):  ##p makes function that takes two words and checks if the first letters are the same. Returns true/false
-        if self.beginning(self.word_to_sym.get(word1.upper())) == self.beginning(self.word_to_sym.get(word2.upper())):  ##p checks if first letter is the same for both words.
+    def beginning_checker(self, word1, word2):
+        '''
+        Takes 2 words and returns true if they have the same beginning consonants.
+        :param word1:
+        :param word2:
+        :return:
+        '''
+        if self.beginning(self.word_to_sym.get(word1.upper())) == self.beginning(self.word_to_sym.get(word2.upper())):
             return True
         else:
             return False
+
     def matcher_beginnings(self, caring, carrots):
         caring, carrots = caring.upper(), carrots.upper()
-        parint = self.rhymer_nonrandom()
+        paring = self.rhymer_nonrandom()
 
     def matcher_endings(self, caring, paring):
+        '''
+        Takes caring and paring, returns two ending-sharing words that start with caring[0] and paring[0].
+        :param caring:
+        :param paring:
+        :return:
+        '''
         caring, paring = caring.upper(), paring.upper()
         carrots, parrots = self.caring_gets_carrotparrot(caring)
         carrots, parrots = self.word_to_sym.get(carrots), self.word_to_sym.get(parrots)
@@ -229,4 +253,4 @@ class spoonerize():
 
 # spoonerize().ending("peter")
 # spoonerize().main("nipple")
-spoonerize().main("none", "bun")
+spoonerize().main("oats")
